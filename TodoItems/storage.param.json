@@ -2,10 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "storageAccountNames": {
+        "storageAccountNames":{
             "value": [
-                "shdevtest0022", 
-                "shdevtest0023"
+                "shdevtest2025",
+                "shdevtest2026"
             ]
         }
     }
