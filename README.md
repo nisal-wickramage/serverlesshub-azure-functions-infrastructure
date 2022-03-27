@@ -17,10 +17,21 @@ see whats going to be deployed  `az deployment sub create --name serverlesshubDe
 delete `az deployment sub delete -n serverlesshubDev --subscription 00a295bd-ad6d-4103-9410-087f91c5cba1`
 
 az login
-az account set -s 1ebbb56e-2979-41cb-a605-97e7b35bcac9
-az deployment group create --resource-group learn-dcb85bba-4a37-4a33-b38e-fe6cbeef4835 --template-file main.bicep -c
+az account set -s e8dcd51a-4d15-4531-94c3-06c5d11f091f
+az deployment group create --resource-group test-rg --template-file main.bicep -c
 
 
-az deployment group create --resource-group learn-dcb85bba-4a37-4a33-b38e-fe6cbeef4835 --template-file main.bicep --mode Complete            
+az deployment group create --resource-group test-rg --template-file main.bicep --mode Complete            
 
-az deployment group create --resource-group learn-dcb85bba-4a37-4a33-b38e-fe6cbeef4835 --template-file cosmos.bicep
+az deployment group create --resource-group test-rg --template-file cosmos.bicep
+
+https://docs.microsoft.com/en-us/azure/devops/pipelines/create-first-pipeline?view=azure-devops&tabs=java%2Ctfs-2018-2%2Cbrowser
+
+
+ az deployment group create --resource-group sh-dev --template-file main.bicep --parameters params.json
+
+az deployment group show --resource-group sh-dev --name main  --query properties.outputs.endpoints.value
+
+az deployment group create --resource-group test-rg --template-file cosmos.bicep
+
+az deployment group show --resource-group test-rg --name cosmos  --query properties.outputs.dbConnectionStrings.value

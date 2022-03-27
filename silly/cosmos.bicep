@@ -1,9 +1,9 @@
-param databaseAccounts_nisaltesting12345_name string = 'nisaltesting12345'
+param databaseAccounts_shdevdb_name string = 'shdevdb'
 param database_name string = 'todocontainer'
 param container_name string = 'todoItems'
-resource databaseAccounts_nisaltesting12345_name_resource 'Microsoft.DocumentDB/databaseAccounts@2021-06-15' = {
-  name: databaseAccounts_nisaltesting12345_name
-  location: 'Central US'
+resource databaseAccounts_shdevdb_name_resource 'Microsoft.DocumentDB/databaseAccounts@2021-06-15' = {
+  name: databaseAccounts_shdevdb_name
+  location: 'East US 2'
   tags: {
     defaultExperience: 'Core (SQL)'
     'hidden-cosmos-mmspecial': ''
@@ -35,7 +35,7 @@ resource databaseAccounts_nisaltesting12345_name_resource 'Microsoft.DocumentDB/
     }
     locations: [
       {
-        locationName: 'Central US'
+        locationName: 'East US 2'
         failoverPriority: 0
         isZoneRedundant: false
       }
@@ -58,8 +58,8 @@ resource databaseAccounts_nisaltesting12345_name_resource 'Microsoft.DocumentDB/
   }
 }
 
-resource databaseAccounts_nisaltesting12345_name_todo_items_db 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-06-15' = {
-  parent: databaseAccounts_nisaltesting12345_name_resource
+resource databaseAccounts_shdevdb_name_todo_items_db 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-06-15' = {
+  parent: databaseAccounts_shdevdb_name_resource
   name: database_name
   properties: {
     resource: {
@@ -68,8 +68,8 @@ resource databaseAccounts_nisaltesting12345_name_todo_items_db 'Microsoft.Docume
   }
 }
 
-resource databaseAccounts_nisaltesting12345_name_todo_items_db_todo_items 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-06-15' = {
-  parent: databaseAccounts_nisaltesting12345_name_todo_items_db
+resource databaseAccounts_shdevdb_name_todo_items_db_todo_items 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-06-15' = {
+  parent: databaseAccounts_shdevdb_name_todo_items_db
   name: container_name
   properties: {
     resource: {
@@ -104,6 +104,9 @@ resource databaseAccounts_nisaltesting12345_name_todo_items_db_todo_items 'Micro
     }
   }
   dependsOn: [
-    databaseAccounts_nisaltesting12345_name_resource
+    databaseAccounts_shdevdb_name_resource
   ]
 }
+
+output dbKeys object = listKeys(databaseAccounts_shdevdb_name_resource.id, '2021-06-15')
+output dbConnectionStrings array = databaseAccounts_shdevdb_name_resource.listConnectionStrings().connectionStrings
